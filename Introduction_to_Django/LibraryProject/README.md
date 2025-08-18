@@ -25,7 +25,7 @@ settings.py: Configuration for the Django project.
 urls.py: The URL declarations for the project; a “table of contents” of your Django-powered site.
 manage.py: A command-line utility that lets you interact with this Django project
 
-Task 1:
+## Task 1:
 Objective: Demonstrate proficiency in Django by creating a Book model within a Django app, implementing it according to specified attributes, and using Django’s ORM to perform database operations.
 
 Task Description:
@@ -82,7 +82,7 @@ Implementation and Submission Instructions:
 Code Implementation: Your models.py file should correctly define the Book model as specified. Ensure that all field types and options are accurately implemented.
 Database Operations: Perform and document each CRUD operation in the Django shell. Save your commands and their outputs in a file named CRUD_operations.md.
 
-Task 2:
+## Task 2:
 Objective: Gain practical experience with the Django admin interface by configuring the admin to manage the Book model. This task will demonstrate how to use Django’s built-in admin interface to perform data management tasks efficiently.
 
 Task Description:
@@ -96,3 +96,27 @@ Customize the Admin Interface:
 
 Implement custom configurations to display title, author, and publication_year in the admin list view.
 Configure list filters and search capabilities to enhance the admin’s usability for Book entries.
+
+# Solution:
+1. Modified bookshelf/admin.py:
+
+from django.contrib import admin
+from .models import Book
+
+class BookAdmin(admin.ModelAdmin):
+    list_display = ('title', 'author', 'publication_year')
+    list_filter = ('publication_year',)
+    search_fields = ('title', 'author')
+
+admin.site.register(Book, BookAdmin)
+
+2. Created a superuser with:
+$ python3 manage.py createsuperuser
+
+3. Ran the development server:
+$ python3 manage.py runserver
+
+4. Accessed http://127.0.0.1:8000/admin/, logged in, and verified:
+   - Book entries are listed with title, author, and publication_year
+   - Filter available by publication year
+   - Search bar supports title and author queries
